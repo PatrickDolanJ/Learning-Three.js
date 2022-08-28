@@ -1,22 +1,45 @@
 import * as THREE from './node_modules/three/build/three.module.js';
 
+// Setting up scene, canvas, and renderer
 const scene = new THREE.Scene(); 
 const camera = new THREE.PerspectiveCamera( 75,window.innerWidth / window.innerHeight, 0.1, 1000 ); 
 const canvas = document.querySelector('#c')
-const renderer = new THREE.WebGLRenderer({canvas});
-//renderer.setSize( window.innerWidth, window.innerHeight );
-//document.body.appendChild( renderer.domElement );
+const renderer = new THREE.WebGLRenderer({canvas},true);
 
+//making the cube
 const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-const cube = new THREE.Mesh(geometry, material);
+const cubegeometry = new THREE.BoxGeometry();
+const material = new THREE.MeshPhongMaterial({ color: 0xd87b94 });
+const cube = new THREE.Mesh(cubegeometry, material);
+cube.position.set(5,0,0);
+const wirecube = new THREE.EdgesGeometry(geometry);
+const line = new THREE.LineSegments( wirecube, new THREE.LineBasicMaterial( { color: 0xffffff } ) );
+scene.add(line);
 scene.add(cube);
 camera.position.z = 5;
 
+{
+    const color = 0xFFFFFF;
+    const intensity = 1;
+    const light = new THREE.DirectionalLight(color, intensity);
+    light.position.set(-1, 2, 4);
+    scene.add(light);
+  }
+
+
+
+
+
+
+
 const animate = function () {
     requestAnimationFrame(animate);
+    line.rotation.x += 0.01;
+    line.rotation.y += 0.01;
+
     cube.rotation.x += 0.01;
     cube.rotation.y += 0.01;
+
     renderer.render(scene, camera);
     };
     animate();

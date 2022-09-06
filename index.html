@@ -4,6 +4,7 @@
   <meta charset=utf-8>
   <title>TEST PAGE 2</title>
   <script type="module" src="main.js"></script>
+  <link rel="stylesheet" href="style.css">
   </head>
   <body style="margin: 0;">
       <div class="scene-container">
@@ -13,30 +14,3 @@
   </body>
 </html>
 
-<style>
-  .scene-container{
-    grid-area: 'scene';
-    width: 100%;
-    height: 100%;
-  }
-
-  .text-stuff{
-    grid-area: 'text';
-  }
-
-  body{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'scene' 'text';
-    grid-template-rows: 1;
-  }
-
-  #c {
-   width: 100%;
-   height: 100%;
-   display: block;
-}
-
-
-
-</style>

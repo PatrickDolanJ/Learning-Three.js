@@ -1,22 +1,26 @@
 
 import * as THREE from './node_modules/three/build/three.module.js';
 import {GLTFLoader} from './node_modules/three/examples/jsm/loaders/GLTFLoader.js';
-
+import {OrbitControls} from './node_modules/three/examples/jsm/controls/OrbitControls.js';
 // Setting up scene, canvas, and renderer
 const scene = new THREE.Scene(); 
 const canvas = document.querySelector('#c');
-const camera = new THREE.PerspectiveCamera(100, window.innerWidth / window.innerHeight, 0.1, 1000 ); 
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000 ); 
 const renderer = new THREE.WebGLRenderer({canvas},true);
 //renderer.setPixelRatio( canvas.devicePixelRatio );
 
 const glLoader = new GLTFLoader();
 glLoader.load('./resources/maple_tree/scene.gltf',(gltf)=>{
   const tree = gltf.scene;
-  tree.position.set(0,0,-5);
+  tree.position.set(0,0,0);
   tree.scale.set(.05,.05,.05);
   scene.add(tree);
 });
 
+
+//Orbit Controls
+const controls = new OrbitControls(camera, renderer.domElement );
+controls.update();
 
 //Making Scene grid Helper
 const axes = new THREE.GridHelper(10,10);
@@ -85,7 +89,7 @@ const animate = function () {
     points_sphere.rotation.x += 0.01;
     points_sphere.rotation.y += 0.01;
 
-    camera.translateY(0.01);
+    //camera.translateY(0.01);
     render();
     renderer.render(scene, camera);
     };
